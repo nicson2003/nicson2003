@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { Header, Grid, Segment, Divider, Container, Button, Icon } from 'semantic-ui-react'
+import { Header, Grid, Segment, Divider, Container, Button } from 'semantic-ui-react'
 import { Menus } from "../common/menu.interface";
 import menuData from "../common/data.json";
 import MenuGroups from "./MenuGroups";
@@ -12,15 +12,10 @@ const MenuForm = () => {
   const [selectedSecondGroup, setSelectedSecondGroup] = useState<Menus | undefined>();
   const [selectedThirdGroup, setSelectedThirdGroup] = useState<Menus | undefined>();
   const [selectedMenu, setSelectedMenu] = useState<Menus>();
-  const [rules, setRules] = useState<Number[]>();
+  const [selectedRules, setSelectedRules] = useState<Number[]>();
   const firstGroups = menuData.menus[0];
   const secondGroups = menuData.menus[1];
   const thirdGroups = menuData.menus[2];
-
-
-  useEffect(() => {
-    //console.log("testing changes", selectedMenu, rules)
-  }, [selectedMenu])
 
   useEffect(() => {
     //reset second/third group selection
@@ -30,8 +25,8 @@ const MenuForm = () => {
 
 
   const handleChange = (e: Menus | any, opt: number) => {
-    setRules(menuData.rules[e.id.toString()])
     setSelectedMenu(e);
+    setSelectedRules(menuData.rules[e.id.toString()])
 
     switch (opt) {
       case 0:
@@ -47,6 +42,7 @@ const MenuForm = () => {
         break;
     }
   } 
+  
 
   return(
     <Container>
@@ -58,13 +54,13 @@ const MenuForm = () => {
         <Segment>
        <Grid columns='three' doubling>
         <Grid.Column>
-          { firstGroups && <MenuGroups groups={firstGroups} onChange={handleChange} opt={0} rules={rules} /> }          
+          { firstGroups && <MenuGroups groups={firstGroups} onChange={handleChange} opt={0} rules={selectedRules} /> }          
         </Grid.Column>
         <Grid.Column>
-          <MenuGroups groups={secondGroups} onChange={handleChange} opt={1} rules={rules} preSelection={selectedFirstGroup}/>
+          <MenuGroups groups={secondGroups} onChange={handleChange} opt={1} rules={selectedRules} preSelection={selectedMenu}/>
         </Grid.Column>
         <Grid.Column>
-          <MenuGroups groups={thirdGroups} onChange={handleChange} opt={2} rules={rules} preSelection={selectedSecondGroup}/>
+          <MenuGroups groups={thirdGroups} onChange={handleChange} opt={2} rules={selectedRules} preSelection={selectedMenu}/>
         </Grid.Column>
       </Grid>
          <Divider horizontal>

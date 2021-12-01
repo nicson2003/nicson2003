@@ -1,5 +1,5 @@
 import React, {FC, useState, useEffect} from 'react';
-import { Form, Radio, Divider, Segment } from 'semantic-ui-react'
+import { Form, Radio } from 'semantic-ui-react'
 
 import { Menus } from "../common/menu.interface";
 
@@ -23,6 +23,10 @@ const GroupMenus: FC<menuOptionProps> = ({
 
   useEffect(() => {
     selected && onChange(selected, opt)
+    if (opt === 2) {
+      //console.log(groups)
+      //console.log("rules->MenuGroups", rules);
+    }
   }, [selected, opt])
 
 
