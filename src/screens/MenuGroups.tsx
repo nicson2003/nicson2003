@@ -8,7 +8,8 @@ export interface menuOptionProps {
   onChange: (diet: Menus, opt: number) => void;
   opt: number;
   rules?: Number[];
-  preSelection?: Menus | undefined
+  preSelection?: Menus | undefined;
+  selectedMenu?: Menus | undefined;
 }
 
 const GroupMenus: FC<menuOptionProps> = ({
@@ -16,22 +17,19 @@ const GroupMenus: FC<menuOptionProps> = ({
   onChange,
   opt,
   rules,
-  preSelection
+  preSelection,
+  selectedMenu
 }) => {
 
   const [selected, setSelected] = useState<Menus>();
 
   useEffect(() => {
     selected && onChange(selected, opt)
-    if (opt === 2) {
-      //console.log(groups)
-      //console.log("rules->MenuGroups", rules);
-    }
   }, [selected, opt])
 
 
   const isRestricted = (id: number) => {
-    if (Boolean(rules) && Boolean(preSelection)) {
+    if (Boolean(rules) && Boolean(selectedMenu)) {
       return rules?.some((i: Number) => i === id)      
     } else return false;
   }
