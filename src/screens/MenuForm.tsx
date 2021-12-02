@@ -24,16 +24,22 @@ const MenuForm = () => {
   }, [selectedFirstGroup])
 
 
+  useEffect(() => {
+    console.log(selectedRules)
+  }, [selectedMenu])
+
+
   const handleChange = (e: Menus | any, opt: number) => {
     setSelectedMenu(e);
-    setSelectedRules(menuData.rules[e.id.toString()])
 
     switch (opt) {
       case 0:
         setSelectedFirstGroup(e)
+        setSelectedRules(menuData.rules[e.id.toString()])
         break;
       case 1:
         setSelectedSecondGroup(e)
+        setSelectedRules(menuData.rules[e.id.toString()])
         break;
       case 2:
         setSelectedThirdGroup(e)
@@ -57,10 +63,10 @@ const MenuForm = () => {
           { firstGroups && <MenuGroups groups={firstGroups} onChange={handleChange} opt={0} rules={selectedRules} /> }          
         </Grid.Column>
         <Grid.Column>
-          <MenuGroups groups={secondGroups} onChange={handleChange} opt={1} rules={selectedRules} preSelection={selectedMenu}/>
+          <MenuGroups groups={secondGroups} onChange={handleChange} opt={1} rules={selectedRules} preSelection={selectedFirstGroup} selectedMenu={selectedMenu}/>
         </Grid.Column>
         <Grid.Column>
-          <MenuGroups groups={thirdGroups} onChange={handleChange} opt={2} rules={selectedRules} preSelection={selectedMenu}/>
+          <MenuGroups groups={thirdGroups} onChange={handleChange} opt={2} rules={selectedRules} preSelection={selectedSecondGroup} selectedMenu={selectedMenu}/>
         </Grid.Column>
       </Grid>
          <Divider horizontal>
